@@ -1,0 +1,345 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #21222C
+background-alt = #373B41
+foreground = #C5C8C6
+primary = #BD93F9
+; primary = #F0C674
+secondary = #8ABEB7
+alert = #A54242
+disabled = #707880
+green = #69FF94
+
+[bar/main]
+width = 100%
+height = 24pt
+radius = 6
+
+; dpi = 96
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3pt
+
+border-size = 4pt
+border-color = #00000000
+
+padding-left = 0
+padding-right = 1
+
+module-margin = 1
+
+separator = |
+separator-foreground = ${colors.disabled}
+
+font-0 = "RobotoMono Nerd Font Mono:pixelsize=10;2:style=Regular"
+font-1 = "RobotoMono Nerd Font Mono:pixelsize=14;2:style=Regular"
+
+modules-left = xworkspaces xkeyboard
+modules-center = xwindow
+modules-right = filesystem pulseaudio memory cpu wlan battery date
+; modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth date
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+; wm-restack = generic
+; wm-restack = bspwm
+wm-restack = i3
+
+; override-redirect = true
+
+[module/systray]
+type = internal/tray
+
+format-margin = 8pt
+tray-spacing = 16pt
+
+[module/xworkspaces]
+type = internal/xworkspaces
+
+label-active = %name%
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1
+
+label-occupied = %name%
+label-occupied-padding = 1
+
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+label-empty = %name%
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1
+
+[module/xwindow]
+type = internal/xwindow
+; label = "%title%"
+label = %title:0:50:...%
+
+; Set window title if there is no label
+label-empty = "Desktop"
+label-empty-background = ${colors.background}
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+
+[module/filesystem]
+type = internal/fs
+
+; Mountpoints to display
+mount-0 = /
+
+; Seconds to sleep between updates
+; Default: 30
+interval = 50
+
+; Display fixed precision values
+; Default: false
+fixed-values = true
+
+; Spacing between entries
+; Default: 2
+spacing = 2
+
+; Available tags:
+;   <label-mounted> (default)
+;   <bar-free>
+;   <bar-used>
+;   <ramp-capacity>
+format-mounted = <label-mounted>
+format-mounted-prefix = ""
+format-mounted-prefix-font = 2
+; format-mounted-background = ${color.shade6}
+; format-mounted-padding = 2
+
+; Available tags:
+;   <label-unmounted> (default)
+format-unmounted = <label-unmounted>
+format-unmounted-prefix = 
+format-unmounted-prefix-font = 1
+; format-unmounted-background = ${color.shade6}
+; format-unmounted-padding = 2
+
+; Available tokens:
+;   %mountpoint%
+;   %type%
+;   %fsname%
+;   %percentage_free%
+;   %percentage_used%
+;   %total%
+;   %free%
+;   %used%
+; Default: %mountpoint% %percentage_free%%
+label-mounted = " %free%"
+
+; Available tokens:
+;   %mountpoint%
+; Default: %mountpoint% is not mounted
+label-unmounted = " %mountpoint%: not mounted"
+
+; ORIGINAL CODE
+; type = internal/fs
+; interval = 25
+
+; mount-0 = /
+
+; label-mounted = %{F#F0C674}%mountpoint%%{F-} %percentage_used%%
+
+; label-unmounted = %mountpoint% not mounted
+; label-unmounted-foreground = ${colors.disabled}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume-prefix = "VOL "
+format-volume-prefix-foreground = ${colors.primary}
+format-volume = <label-volume>
+
+label-volume = %percentage%%
+
+label-muted = 
+; label-muted = muted
+label-muted-foreground = ${colors.disabled}
+label-muted-font = 2
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+label-layout =
+; label-layout = %layout%
+label-layout-foreground = ${colors.primary}
+
+label-indicator-padding = 1
+; label-indicator-margin = 1
+label-indicator-foreground = ${colors.background}
+label-indicator-background = ${colors.primary}
+; label-indicator-background = ${colors.secondary}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+; format-prefix = "RAM "
+format-prefix-foreground = ${colors.primary}
+format-prefix-font = 2
+label = %percentage_used%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+; format-prefix = "CPU "
+format-prefix-foreground = ${colors.primary}
+format-prefix-font = 2
+label = %percentage%
+; label = %percentage:2%%
+
+[network-base]
+type = internal/network
+interval = 5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
+
+[module/wlan]
+inherit = network-base
+interface-type = wireless
+
+label-connected = %essid%
+label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
+
+
+; [module/wlan]
+; inherit = network-base
+; interface-type = wireless
+
+; format = <label-connected>
+; format-prefix = " "
+; font-prefix-font = 2
+; format-foreground = ${colors.primary}
+
+; label-connected = %essid%
+; label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
+; label-connected = %{F#F0C674}%ifname%%{F-} %essid% %local_ip%
+
+; [module/eth]
+; inherit = network-base
+; interface-type = wired
+; label-connected = %{F#F0C674}%ifname%%{F-} %local_ip%
+
+[module/date]
+type = internal/date
+interval = 1
+
+; date = %H:%M
+date = %d-%m-%Y %H:%M
+; date-alt = %Y-%m-%d %H:%M:%S
+
+format = <label>
+format-prefix = "󰃭 "
+format-prefix-font = 2
+format-foreground = ${colors.primary}
+
+label = %date%
+; label = %date%
+label-foreground = ${colors.foreground}
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT1
+adapter = ADP1
+; adapter = ACAD
+poll-interval = 2
+time-format = %H:%M
+; time-format: %H:%M:%S
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <label-full>
+format-full-prefix = 
+format-full-prefix-font = 2
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-full = " Full"
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-font = 2
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-font = 2
+
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+; vim:ft=dosini
