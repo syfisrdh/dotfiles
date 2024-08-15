@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -21,8 +21,16 @@ gaps inner 10
 gaps outer 0
 
 # Remove Border
-for_window [class="^.*"] border pixel 0
-#default_border pixel 0
+#for_window [class="^.*"] border pixel 0
+
+default_border pixel 2
+
+# Define border colors
+client.focused          #BD93F9 #9B60F4 #FFFFFF #BD93F9 #7D36E3
+#client.focused          #BD93F9 #9B60F4 #FFFFFF #BD93F9 #9B60F4
+client.unfocused        #282A36 #3C3F5C #B0B0B0 #282A36 #3C3F5C
+client.urgent           #FF5555 #FF5555 #FFFFFF #FF5555 #FF5555
+#client.minimized        #282A36 #282A36 #B0B0B0 #282A36 #282A36
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -63,7 +71,9 @@ bindsym $mod+Return exec st
 
 # application hotkey
 bindsym $mod+Shift+b exec microsoft-edge-stable
+bindsym $mod+Shift+d exec code
 bindsym $mod+Shift+s exec spotify
+bindsym $mod+Shift+o exec obsidian
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -207,7 +217,7 @@ bindsym $mod+r mode "resize"
 #}
 
 # Start wallpaper on startup
-exec_always --no-startup-id feh --bg-scale /home/monarch/.config/Wallpaper/wallpaper.png
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpaper/wallpaper.png
 
 # Start application on startup
 exec_always --no-startup-id picom
