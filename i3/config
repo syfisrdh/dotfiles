@@ -72,6 +72,7 @@ bindsym $mod+Return exec st
 # application hotkey
 bindsym $mod+Shift+b exec microsoft-edge-stable
 bindsym $mod+Shift+d exec code
+bindsym $mod+Shift+t exec thunar
 bindsym $mod+Shift+s exec spotify
 bindsym $mod+Shift+o exec obsidian
 
