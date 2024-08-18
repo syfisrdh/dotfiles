@@ -114,22 +114,9 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 highlight Comment cterm=italic gui=italic
 
-" Yank selected lines to clipboard
-" Dependencies - xclip xorg.xclipboard
-vnoremap <leader>y :<C-u>call YankVisualSelectionToClipboard()<CR>
 
-function! YankVisualSelectionToClipboard()
-    " Get the number of lines in the visual selection
-    let l:start = line("'<")
-    let l:end = line("'>")
-    let l:lines = l:end - l:start + 1
+vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
 
-    " Yank the visual selection to the system clipboard
-    execute "normal! \"+y"
-
-    " For debugging or confirmation, you can print the number of lines
-    echo l:lines . " lines yanked to clipboard"
-endfunction
 
 set laststatus=2
 " set showtabline=2
